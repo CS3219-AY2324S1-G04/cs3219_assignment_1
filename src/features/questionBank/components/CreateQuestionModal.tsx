@@ -60,10 +60,10 @@ const CreateQuestionModal: React.FC<Props> = (props: Props) => {
       category: '',
       duplicate: false,
     }
-    if (title === '') {
+    if (title.trim() === '') {
       errors.title = 'Question title is required'
     }
-    if (description === '') {
+    if (description.trim() === '') {
       errors.description = 'Question description is required'
     }
     if (categories.length === 0) {
@@ -72,7 +72,7 @@ const CreateQuestionModal: React.FC<Props> = (props: Props) => {
 
     const questionList = questionBank.questionsList
     const duplicate = questionList.find(
-      (q) => q.title.toLowerCase() === title.toLowerCase(),
+      (q) => q.title.toLowerCase() === title.toLowerCase().trim(),
     )
     errors.duplicate = !!duplicate
 
@@ -91,14 +91,14 @@ const CreateQuestionModal: React.FC<Props> = (props: Props) => {
   }, [])
 
   const onAddCategory = () => {
-    if (!categoryInput) {
+    if (categoryInput.trim() === '') {
       setErrors({
         ...errors,
         category: 'Category cannot be empty!',
       })
       return
     }
-    if (categories.includes(categoryInput)) {
+    if (categories.includes(categoryInput.trim())) {
       setErrors({
         ...errors,
         category: 'This category was already added!',
@@ -106,7 +106,7 @@ const CreateQuestionModal: React.FC<Props> = (props: Props) => {
       return
     }
     const updated = categories
-    updated.push(categoryInput)
+    updated.push(categoryInput.trim())
     setCategories(updated)
     setCategoryInput('')
   }
@@ -158,7 +158,7 @@ const CreateQuestionModal: React.FC<Props> = (props: Props) => {
             const isValid = validateSubmission()
             if (isValid) {
               const draftQns: DraftQuestion = {
-                title,
+                title: title.trim(),
                 description,
                 category: categories,
                 complexity,

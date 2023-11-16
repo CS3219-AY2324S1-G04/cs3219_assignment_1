@@ -24,18 +24,19 @@ import 'easymde/dist/easymde.min.css'
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux'
 import { addNewQuestion } from '../slice'
 import { DraftQuestion, QuestionComplexity } from '../types'
-import { selectQuestionBank } from '../selectors'
+import { selectQuestionBank, selectCurrentQuestion } from '../selectors'
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const CreateQuestionModal: React.FC<Props> = (props: Props) => {
+const EditQuestionModal: React.FC<Props> = (props: Props) => {
   const { isOpen, onClose } = props
   const { mode } = useColorScheme()
   const questionBank = useAppSelector(selectQuestionBank)
   const dispatch = useAppDispatch()
+  const currentQuestion = useAppSelector(selectCurrentQuestion)
 
   const [title, setTitle] = useState<string>('')
   const [description, setDescription] = useState<string>('')
@@ -54,6 +55,8 @@ const CreateQuestionModal: React.FC<Props> = (props: Props) => {
   useEffect(() => {}, [])
 
   const validateSubmission = () => {
+    if (!currentQuestion) return null
+
     const errors = {
       title: '',
       description: '',
@@ -72,7 +75,7 @@ const CreateQuestionModal: React.FC<Props> = (props: Props) => {
 
     const questionList = questionBank.questionsList
     const duplicate = questionList.find(
-      (q) => q.title.toLowerCase() === title.toLowerCase(),
+      (q) => q.title.toLowerCase() === title.toLowerCase() && q.id !== currentQuestion.id,
     )
     errors.duplicate = !!duplicate
 
@@ -248,4 +251,4 @@ const CreateQuestionModal: React.FC<Props> = (props: Props) => {
   )
 }
 
-export default CreateQuestionModal
+export default EditQuestionModal

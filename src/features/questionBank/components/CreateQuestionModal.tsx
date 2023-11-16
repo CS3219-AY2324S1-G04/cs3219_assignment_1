@@ -163,6 +163,13 @@ const CreateQuestionModal: React.FC<Props> = (props: Props) => {
                 category: categories,
                 complexity,
               }
+
+              setTitle('')
+              setDescription('')
+              setCategories([])
+              setCategoryInput('')
+              setComplexity(QuestionComplexity.Easy)
+
               dispatch(addNewQuestion(draftQns))
               onClose()
             }

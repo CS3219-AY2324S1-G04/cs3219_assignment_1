@@ -8,8 +8,6 @@ Make sure that the following are installed on your device:
 
 ## Launch Guide
 
-This instructions assumes you are cloning from the main repo.
-
 1. Install dependencies.
 
     ```bash

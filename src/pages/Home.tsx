@@ -16,7 +16,7 @@ import {
   Table,
   Typography,
 } from '@mui/joy'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import ColorSchemeToggle from '../components/ColorSchemeToggle'
 import { Layout } from '../components/Layout'
 import CreateQuestionModal from '../features/questionBank/components/CreateQuestionModal'
@@ -36,6 +36,13 @@ const Home: React.FC = () => {
 
   const [isCreateOpen, setIsCreateOpen] = useState<boolean>(false)
   const [isDetailOpen, setIsDetailsOpen] = useState<boolean>(false)
+  const [searchText, setSearchText] = useState<string>('')
+
+  const filtered = useMemo(() => {
+    const questionsList = questionBank.questionsList
+
+    return questionsList.filter((q) => q.title.toLowerCase().includes(searchText.toLowerCase()))
+  }, [questionBank.questionsList, searchText])
 
   return (
     <CssVarsProvider>
@@ -67,6 +74,7 @@ const Home: React.FC = () => {
           </Box>
           <Input
             size="md"
+            value={searchText}
             variant="outlined"
             placeholder="Search for questions"
             startDecorator={<SearchRoundedIcon color="primary" />}
@@ -78,6 +86,7 @@ const Home: React.FC = () => {
               },
               boxShadow: 'sm',
             }}
+            onChange={(e) => setSearchText(e.target.value)}
           />
           <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1.5 }}>
             <IconButton
@@ -128,7 +137,7 @@ const Home: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {questionBank.questionsList.map((question) => (
+                  {filtered.length > 0 && filtered.map((question) => (
                     <tr key={question.id}>
                       <td>{question.id}</td>
                       <td>{question.title}</td>

@@ -54,6 +54,16 @@ const questionBankSlice = createSlice({
     setCurrentQuestion: (state, action: PayloadAction<Question>) => {
       state.currentQuestion = action.payload
     },
+    editExistingQuestion: (state, action: PayloadAction<Question>) => {
+      const editedQuestion: Question = { ...action.payload }
+      state.questionsList[action.payload.id] = editedQuestion
+
+      // save to local storage
+      localStorage.setItem(
+        LocalStorageKeys.QUESTIONS_LIST,
+        JSON.stringify(state.questionsList),
+      )
+    },
   },
 })
 
@@ -62,6 +72,7 @@ export const {
   addNewQuestion,
   setCurrentQuestion,
   removeQuestion,
+  editExistingQuestion,
 } = questionBankSlice.actions
 
 export default questionBankSlice.reducer

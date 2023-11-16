@@ -91,6 +91,13 @@ const CreateQuestionModal: React.FC<Props> = (props: Props) => {
   }, [])
 
   const onAddCategory = () => {
+    if (!categoryInput) {
+      setErrors({
+        ...errors,
+        category: 'Category cannot be empty!',
+      })
+      return
+    }
     if (categories.includes(categoryInput)) {
       setErrors({
         ...errors,
@@ -178,7 +185,7 @@ const CreateQuestionModal: React.FC<Props> = (props: Props) => {
                 onChange={onDescriptionChange}
               />
             </FormControl>
-            <FormControl error={errors.category !== ''}>
+            <FormControl error={errors.category.trim() !== ''}>
               <FormLabel>Category</FormLabel>
               <Input
                 value={categoryInput}

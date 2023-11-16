@@ -167,6 +167,15 @@ const Home: React.FC = () => {
                               dispatch(setCurrentQuestion(question))
                             }}
                           >
+                            Edit details
+                          </Button>
+                          <Button
+                            size="sm"
+                            onClick={() => {
+                              setIsDetailsOpen(true)
+                              dispatch(setCurrentQuestion(question))
+                            }}
+                          >
                             View details
                           </Button>
                           <IconButton

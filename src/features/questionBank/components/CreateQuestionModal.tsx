@@ -185,12 +185,12 @@ const CreateQuestionModal: React.FC<Props> = (props: Props) => {
                 onChange={onDescriptionChange}
               />
             </FormControl>
-            <FormControl error={errors.category !== ''}>
+            <FormControl error={errors.category.trim() !== ''}>
               <FormLabel>Category</FormLabel>
               <Input
                 value={categoryInput}
                 onChange={(e) => {
-                  setCategoryInput(e.target.value.trim())
+                  setCategoryInput(e.target.value)
                   if (errors.category !== '') {
                     setErrors({
                       ...errors,

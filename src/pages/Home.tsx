@@ -37,6 +37,8 @@ const Home: React.FC = () => {
   const [isCreateOpen, setIsCreateOpen] = useState<boolean>(false)
   const [isDetailOpen, setIsDetailsOpen] = useState<boolean>(false)
   const [searchText, setSearchText] = useState<string>('')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [isEditOpen, setIsEditOpen] = useState<boolean>(false)
 
   const filtered = useMemo(() => {
     const questionsList = questionBank.questionsList
@@ -163,11 +165,11 @@ const Home: React.FC = () => {
                           <Button
                             size="sm"
                             onClick={() => {
-                              setIsDetailsOpen(true)
-                              dispatch(setCurrentQuestion(question))
+                              setIsEditOpen(true)
+                              // dispatch(setCurrentQuestion(question))
                             }}
                           >
-                            Edit details
+                            Edit
                           </Button>
                           <Button
                             size="sm"

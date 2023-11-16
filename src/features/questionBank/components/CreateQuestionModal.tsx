@@ -185,12 +185,13 @@ const CreateQuestionModal: React.FC<Props> = (props: Props) => {
                 required
               />
             </FormControl>
-            <FormControl>
+            <FormControl error={errors.description.trim() !== ''}>
               <FormLabel>Description</FormLabel>
               <SimpleMdeReact
                 value={description}
                 onChange={onDescriptionChange}
               />
+              <FormHelperText>{errors.description}</FormHelperText>
             </FormControl>
             <FormControl error={errors.category.trim() !== ''}>
               <FormLabel>Category</FormLabel>
